@@ -1,0 +1,15 @@
+.dash{
+  height: 600px;
+}
+
+.gray-white{
+  background-color: var(--gray-dark-bg);
+  &__font--white {
+    color: white;
+  }
+
+}
+
+.header-menu{
+  height: 50px;
+}
