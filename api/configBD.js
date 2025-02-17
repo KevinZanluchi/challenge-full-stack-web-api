@@ -15,7 +15,7 @@ if (isProduction){
         user : 'postgres',
         host : 'localhost',
         database : 'challenge-full-stack-web',
-        password : '@1B2c3d4e5',
+        password : 'postgres',
         port : '5432'
     })
 }
