@@ -31,12 +31,5 @@ npm run start
 
 No back-end foi utilziado express, cors, pg e postgresql.
 
-Configuração padrão do database:
-
-        user : 'postgres',
-        host : 'localhost',
-        database : 'challenge-full-stack-web',
-        password : 'postgres',
-        port : '5432'
 
 tambem rodar as configurações da tabela na pasta database/migration.txt

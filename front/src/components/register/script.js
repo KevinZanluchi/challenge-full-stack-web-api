@@ -3,7 +3,7 @@ export default {
   name: "Register",
   props: {
     idEdit:{
-      type:Number,
+      type:String,
       default:null
     },
   },
@@ -21,7 +21,7 @@ export default {
       dialog: false,
       textAlert:"",
     nameRules: [
-      v => !!v || 'Name é obrigatorio',
+      v => !!v || 'Nome é obrigatorio',
       v => (v && v.length <= 20) || 'Nome precisa ter menos de 20 caracteres',
     ],
 
@@ -61,10 +61,8 @@ export default {
       }
 
       if (this.isEditing) {
-        this.textAlert="Realizado a alteração com sucesso!"
         this.sendEditStudent();
       } else {
-        this.textAlert="Salvo com sucesso!"
         this.postStudent();
       }
             
@@ -78,9 +76,16 @@ export default {
           academicrecord: this.student.academicrecord,
           cpf: this.student.cpf
         };
-        const res = await studentService.post(body);
+        await studentService.post(body);
+        this.textAlert="Aluno cadastrado com sucesso!"
       } catch (err) {
-        console.log(err);
+        this.validButtom = false;
+      if (err.response && err.response.data) {
+          this.textAlert=`Erro: ${err.response.data.error}`;
+          console.log(err.response.data);
+      } else {
+          this.textAlert="Erro inesperado ao cadastrar aluno.";
+      }
       }
     },
     async getStudentById(studentId) {
@@ -94,14 +99,21 @@ export default {
     async sendEditStudent(){
       try {
         const body = {
+          id: String(this.idEdit),
           name: this.student.name,
           email: this.student.email,
-          academicrecord: this.student.academicrecord,
-          cpf: this.student.cpf
+          // academicrecord: this.student.academicrecord,
+          // cpf: this.student.cpf
         };
         const res = await studentService.patch(this.idEdit,body);
+        this.textAlert="Realizado a alteração com sucesso!"
       } catch (err) {
-        console.log(err);
+        this.validButtom = false;
+        if (err.response && err.response.data) {
+          this.textAlert=` Erro: ${err.response.data.error}`;
+        } else {
+          this.textAlert="Erro inesperado ao cadastrar aluno.";
+        }
       }
     },
     sendData(){
@@ -115,6 +127,10 @@ export default {
     clearData(){
       this.dialog = false;
       this.student = { academicrecord: "", name: "", cpf: "", email: "" };
+    },
+    closeAlertErro(){
+      this.dialog = false
+      this.validButtom = true;
     }
   },
 };

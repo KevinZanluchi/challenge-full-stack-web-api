@@ -26,32 +26,22 @@ export default {
   },
   watch: {
     search(newSearch) {
+     
       if (newSearch){
-        this.getSearchStudent(newSearch);
+        this.getAllStudents(newSearch);
       } else {
         this.getAllStudents();
       }
     }
   },
   methods:{
-    async getAllStudents(){
+    async getAllStudents(newSearch = ''){
       this.isLoading = true;
       try {
-        const { data }  = await studentService.get();
+        const { data }  = await studentService.get(newSearch);
         const { results, totalCount } = data;
         this.items = results;
         this.totalCount = totalCount;
-      } catch(err) {
-        console.log(err);
-      } finally {
-        this.isLoading = false;
-      }
-    },
-    async getSearchStudent(search){
-      this.isLoading = true;
-      try {
-        const { data }  = await studentService.getStudentBySearch(search);
-        this.items= data;
       } catch(err) {
         console.log(err);
       } finally {

@@ -21,7 +21,7 @@
               </v-card-title>
 
               <v-card-text class="mt-5">
-                {{textAlert}}
+                <pre>{{ textAlert}}</pre>
               </v-card-text>
 
               <v-divider></v-divider>
@@ -31,7 +31,7 @@
                 <v-btn v-if="validButtom === true" color="primary" text @click="sendData">
                   Ok
                 </v-btn>
-                <v-btn v-if="validButtom === false" color="primary" text @click="dialog = false">
+                <v-btn v-if="validButtom === false" color="primary" text @click="closeAlertErro">
                   Ok
                 </v-btn>
               </v-card-actions>
